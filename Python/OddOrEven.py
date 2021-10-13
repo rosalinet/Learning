@@ -13,6 +13,8 @@ else:
 #Calculate modulo with 4 and print it as well
 if num%4 == 0:
     print("This number is also a multiple of 4!")
+else:
+    print("This number is NOT a multiple of 4.")
 
 #Exercise 2 Extra pt 2
 #Take two integers to be calculated
