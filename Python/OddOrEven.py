@@ -18,6 +18,7 @@ if num%4 == 0:
 #Take two integers to be calculated
 numExtra = int(input("Enter a number to check: "))
 numCheck = int(input("Enter a number to divide it by: "))
+#if statement to check if the numExtra can be divided by numCheck and prints off the corresponding message
 if numExtra%numCheck == 0:
     print(f"{numExtra} divides evenly into {numCheck}!")
 else:
