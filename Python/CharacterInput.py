@@ -13,7 +13,7 @@ finalYear = (today.year + (100-age))
 #Print final calculation
 print(f"You will be 100 when it is the year {finalYear}")
 
-#Exercise 1 Part 2
+#Exercise 1 Extra
 
 toLoop = int(input("Enter the amount of times you want your message to be repeated:"))
 for i in range(toLoop):
