@@ -1,6 +1,6 @@
-#These notes serve to record notes for the book titled LINUX IN ACTION by DAVID CLINTON
+﻿#These notes serve to record notes for the book titled LINUX IN ACTION by DAVID CLINTON
 
-Chapter 1
+Chapter 1 – Welcome to Linux
 Key Terms:
 open source, distribution (distro), file system, index, partition, terminal, process, BASH, Plain text, File globbing, Tab completion, Pseudo file systems
 What it covered:
@@ -28,7 +28,7 @@ You can use the flag -v to invert your results (everything that DOESN'T say erro
 - Use the internet for help, someone else has probably encountered your problem
 
 
-Chapter 2
+Chapter 2 – Linux Virtualization: Building a Linux Working Environment
 Key Terms:
 virtualization, hypervisor, container, dynamically-allocated, software repository, fixed-size disk
 What it covered:
@@ -61,8 +61,10 @@ What it covered:
 - In the root shell session you can run commands like ip addr to see what's going on in the container. To leave, just type exit, and you won't shut down the container. If you DO want to shut it down, use shutdown -h(halt) now (if you used the -r(reboot) flag, it would reboot) 
 - You can find the main Filesystem Hierarchy Standard (FHS) in the /var/lib/lxc/<YOURCONTAINER> rootfs file. (You can use sudo su to do this in sudo)
 
-Chapter 3
-Key Terms: password, RSA, X11 forwarding, Y Shell, C parent shell
+
+Chapter 3 – Remote Connectivity: Safely Accessing Networked Machines
+Key Terms: 
+password, RSA, X11 forwarding, Y Shell, C parent shell
 What it covered:
 	1. Encryption and secure remote connections
 	2. Linux system process management with systemd
@@ -96,4 +98,31 @@ Extra 6.
 - You can visualize the parent and child shell/processes by using the pstree command. (the -p flag adds the PID)
 - systemctl is like Task Manager.
 - systemd also has networkd, journald, and udevd as services
+
+
+Chapter 4 - Archive Management: Backing up or Copying Entire File Systems
+Key Terms:
+archive, compression, image, permissions, ownership, group
+What it covered:
+	1. Why, what and where to archive
+	2. Archiving files and file systems using tar
+	3. Searching for system files
+	4. Securing files with object permissions and ownership
+	5. Archiving partitions with dd
+	6. Synchronizing remote archives with rsync
+1.
+- An archive is a single file containing a collection of objects: files, directories, or a combo of both.
+- What exactly is compression? Files are compressed into an unreadable format in order to reduce the amount of disk space it takes, but can be decompressed back through the same algorithm in reverse.
+- 2 main reasons to create archives: building a reliable file system image and to create efficient data backups.
+	- Images are created from all or parts of a live OS so you can copy and paste the contents onto a second computer. This is commonly used for providing identical system setups to multiple users.
+	- Reasons for back-ups: hardware failure, fat fingers, insecure data loss, ransomware, etc. Back-up data should also be tested to ensure it works. Generating and monitoring log messages can help spot some problems. 
+- Archiving small amounts of data: use scp command to secure location. Otherwise, use df to see how much space the partition of data that you want to back-up is. (The -h flag changes the sizes to readable byte formatting)
+- If a file designation is tmpfs and the number of bytes in the Used column is 0, then you’re most-likely looking at a pseudo/temp file system.
+- Where should you archive? Somewhere RELIABLE, TESTED, ROTATED, DISTRIBUTED, SECURE, COMPLIANT, UP TO DATE, AND SCRIPTED.
+2.
+- 3 Things to Successfully Complete your Archive:
+	Find and identify the files you want to include
+	Identify the location on a storage drive that you want your archive to use
+	Add your files to an archive, and save it to its storage location
+	You can do all of this with tar!
 
