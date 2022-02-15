@@ -212,6 +212,32 @@ Working with Services
     firewall-cmd --zone=public --add-service=http --permanent adds the http service to the allowed services in the firewall permanently
     firewall-cmd --zone=public --remove-service=http --permanent removes the http service to the allowed services in the firewall permanently
   
-    
+Samba
+  - A package that provides SMB server capability
+  yum install samba samba-common samba-client
+  - Open samba config with vi /etc/samba/smb.conf
+  - [homes] section provides access for users with accounts on the machine to connect to their home folders and work on files from there
+  sudo smbpasswd -a <USER> adds a user and sets a password for samba
+  sudo setsebool -P samba_enable_home_dirs on tells samba to share the contents of home directories (-P flag stands for policy which means it will stay after reboot)
+  sudo firewall-cmd --zone=public --add-service=samba --permanent
+  sudo firewall-cmd --reload
+  sudo systemctl start smb makes sure samba is running. Check client files to see if the server is listed under Networks. 
+    - You can go to your home share by connecting at the bottom with smb://<IPADDRESS>/<HOMESHARENAME> and enter password when prompted.
+  You can create a group file share with Samba by editing the /etc/samba/smb.conf file and adding a new group at the bottom.
+    [groupname]
+      comment = Files for this groupname
+      path = /opt/groupname
+      browseable = Yes (if No, a client would need to request the name of this share explicitly to connect)
+      writeable = Yes (allows user to create files within the share, equivalent to read-only=no)
+      valid users = @groupname
+      create mask = 0770 (makes any file created have full read, write, and execute permissions for user and group)
+      directory mask = 0770 (sets the directories to the aforementioned permissions)
+  - Then save and exit.
+  - You can test the parameters with testparm and see if everything is configured correctly/has proper syntax.
+  sudo mkdir /opt/groupname (create groupshare directory)
+  chgrp <GROUPNAME> /opt/groupname
+  chmod -R (recursive flag) 2770 /opt/groupname (This makes all files in this directory have read, write, execute permissions for users in this group)
+  
+  
   
   
