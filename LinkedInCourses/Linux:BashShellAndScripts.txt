@@ -1,1 +1,22 @@
+#These notes reflect LinkedIn's "Linux: Bash SHell and Scripts" course by Kevin Dankwardt
 
+Intro to Bash Scripting ----------
+  How to find info: man pages, info pages, web searches, reference manual
+   man bash | wc -l (lists wordcount)
+   info bash (interactive bash manual, can search with s, help with h, menu with m, ...)
+   gnu.org website has shell scripts and other useful info on bash
+  Script File Basics: 
+    #! ("shebang") ALWAYS first 2 characters, kernel executes the program that follows via kernel system execve() 
+    path to Bash or env: (ALWAYS include path to shell, you can't depend on the default interpreter to always be what you want)
+      - Note: without a path to the shell, the script will show the command as "bash" instead of "myscript.sh"
+      #!/usr/bin/env bash
+      #!/bin/bash (also acceptable & most common)
+    ./myscript.sh with #!/bin/bash would have the kernel execute /bin/bash ./myscript.sh
+    Perl, Python, Expect, awk, and Bash can use #!
+    - Scripts need to be made executable (chmod +x)
+      - With read permissions (not execute), you can still run the script with bash thescript.sh (must be interpreted by another command, can't be ran by ./thescript.sh like someone who COULD execute it would)
+    - It's good practice to end a script with .sh (common and informative)
+  
+  Built-In Time Command:
+    
+    
