@@ -1,6 +1,6 @@
 #These notes reflect LinkedIn's "Learning CentOS Linux" course by Scott Simpson
 
-What is CentOS?
+What is CentOS? ----------
   - (C)ommunity (ENT)nterprise (O)perating (S)ystem
   - Dervied from Red Hat Enterprise Linux (RHEL)
   - CentOS is free and community supported
@@ -9,7 +9,7 @@ What is CentOS?
   - Well-established features
   - Organizations often use Red Hat for production systems and CentOS for development
 
-Filesystem Hierarchy Standard (FHS)
+Filesystem Hierarchy Standard (FHS) ----------
   / = root, highest level in the hierarchy
   /bin = command binaries (grep, awk, bash)
   /boot = boot loader (grub), kernel
@@ -30,7 +30,8 @@ Filesystem Hierarchy Standard (FHS)
   /usr = another place for applications to live
   /var = logs and files that change over time
  
- Network Address - Allows a server to communicate with its clients. (CHeck ip with the "ip a" command)
+Network Address ----------
+  Allows a server to communicate with its clients. (Check ip with the "ip a" command)
  2 Ways to Assign an Address to a Server:
   Dynamic - Assigned by the Network's DHCP server as needed (can change)
   Static - Fixed Address set locally by administrator or set by DHCP (reserve IP address and assign it consistently)
@@ -60,7 +61,7 @@ Filesystem Hierarchy Standard (FHS)
     (Use ip a to see if your new settings have applied)
     (You can ping a DNS server or a website address to check for a response. Ex: ping linkedin.com)
     
-- Connecting the Network Address with Network Manager:
+Connecting the Network Address with Network Manager ----------
   - Network Manager has a GUI, TUI, and CLI (nmcli)
   1. Check that NM_CONTROLLED is removed or set to YES in the /etc/sysconfig/network-scripts/ifcfg-en(whatever your ethernet config file is)
   2. nmcli connection (or "nmcli c" for short) to see your current connection.
@@ -80,14 +81,14 @@ Filesystem Hierarchy Standard (FHS)
     (Use ip a to see if your new settings have applied)
     (You can ping a DNS server or a website address to check for a response. Ex: ping linkedin.com)
  
-  - Hostnames should be useful and memorable, >64 characters (alphanumeric and dashes allowed)
+Hostnames should be useful and memorable, >64 characters (alphanumeric and dashes allowed)
       hostnamectl command tells you current hostname/system info
       hostnamectl --static set-hostname "poseidon" (changing your static hostname)
       hostnamectl --pretty set-hostname "Poseidon" (shows up here and there and accepts more special characters)
       cat /etc/hostname to see what the current hostname is
       Restart the machine to see the new hostname (root@poseidon)
       
-- Secure Shell (SSH)
+Secure Shell (SSH) ----------
   Establishes a secure connection for remote terminal access
     Uses a username and password (easier) or username and keypair (more secure)
   Best practices: do not connect to servers remotely as root or even allow root to log in remotely, and use keys instead of passwords.
@@ -101,7 +102,7 @@ Filesystem Hierarchy Standard (FHS)
   Within the SSH server, use "sudo vi /etc/ssh/sshd_config" to edit the sshd configuration file.
     - This file has a line PermitRootLogin; change this to no (good practice), then restart with systemctl restart sshd.
 
-- Keypairs with SSH
+Keypairs with SSH ----------
   Keypairs are made of two parts: a public key (stored on servers you want to connect to) and a private key (stored on your computer)
     - Generating keys is usually done on the client, not server, so users can keep their own private keys instead of being given one by an administrator.
   Use "ssh-keygen" on your home client and follow the steps; 2 files will be generated in your ssh directory, a public and a private.
@@ -111,13 +112,13 @@ Filesystem Hierarchy Standard (FHS)
     - Make sure the correct permissions are in place. (700 for .ssh/, 600 for authorized_keys)
   Now log in to your host from your client using a -i flag and explicity listing the path to the private key. (ssh user@host -i ./ssh/id_rsa)
   
-- Transferring Files to the Server: sftp (SSH File Transfer Protocol) or scp (secure copy)
+Transferring Files to the Server: sftp (SSH File Transfer Protocol) or scp (secure copy) ----------
   sftp -i .ssh/id_rsa user@hostname (opens a limited shell that allows you to transfer files, use help to see commands)
     Useful commands: get <FILENAME>, put <FILENAME>, bye (exit)
   scp -i .ssh/id_rsa user@hostname:<FILENAME/RELATIVE-PATH/ABSOLUTE-PATH> . (copies a file FROM the server, : represents home folder, copies it to . (client's home folder))
   scp -i .ssh/id_rsa <LOCALFILE> user@hostname: (sends a file to the home folder of the host server, you can add a path after : to specify where it goes)
  
-- File Permissions
+File Permissions ----------
   -rw-rw-r--. 1 scott wheel 20 Dec 19 23:28 examplefile1
   (USER)(GROUP)(OTHER) (SYMBOLIC LINKS) (USER) (USER'S GROUP) (DATE AND TIME) (FILENAME)
   - denotes a file, d denotes a directory
@@ -126,7 +127,7 @@ Filesystem Hierarchy Standard (FHS)
   chown (change owner command), chgrp (change group command), chmod (change permissions command)
   groupadd <GROUPNAME> creates an entry for the group in the /etc/group file with a : between the group and users. (usermod -aG <GROUPNAME> <USER>)
   
-- Package Management
+Package Management ----------
   Yum (Yellowdog Updater, Modified) package manager that uses RPM (Red Hat package manager)
   - Yum pulls from repositories like apt does for Debian distributions.
   yum repolist shows repositories available; the system will determine which mirrors are closest or fastest.
@@ -159,7 +160,7 @@ Filesystem Hierarchy Standard (FHS)
       Updates with yum (easier updates)
       - Follow instructions provided for the specific repo.
 
-- SELinux (Security-Enhanced Linux) (BASIC LEVEL)
+SELinux (Security-Enhanced Linux) (BASIC LEVEL) ----------
   - Originally developed by NSA
   - Provides access control policies for Linux
   - Tags every file and resource on the system for more granular security
@@ -194,7 +195,7 @@ Filesystem Hierarchy Standard (FHS)
     setenforce 0 changes to permissive mode (as mentioned before) or turns off SELinux for the current session (until boot)
     aureport --avc shows the AVC events in the audit log (any denied messages)
     
-Working with Services
+Working with Services ----------
   - Services are programs or tolls that run in the background.
   systemctl lists all active services on the system
   systemctl status <UNITNAME> shows info on a specific service
@@ -212,7 +213,7 @@ Working with Services
     firewall-cmd --zone=public --add-service=http --permanent adds the http service to the allowed services in the firewall permanently
     firewall-cmd --zone=public --remove-service=http --permanent removes the http service to the allowed services in the firewall permanently
   
-Samba
+Samba ----------
   - A package that provides SMB server capability
   yum install samba samba-common samba-client
   - Open samba config with vi /etc/samba/smb.conf
@@ -235,9 +236,59 @@ Samba
   - Then save and exit.
   - You can test the parameters with testparm and see if everything is configured correctly/has proper syntax.
   sudo mkdir /opt/groupname (create groupshare directory)
-  chgrp <GROUPNAME> /opt/groupname
-  chmod -R (recursive flag) 2770 /opt/groupname (This makes all files in this directory have read, write, execute permissions for users in this group)
+  sudo chgrp <GROUPNAME> /opt/groupname
+  sudo chmod -R (recursive flag) 2770 /opt/groupname (This makes all files in this directory have read, write, execute permissions for users in this group)
+  - You also need to set the context for SELinux: sudo chcon -R -t samba_share_t /opt/groupname
+  - Then restart Samba: sudo systemctl restart smb
+  That is how you host a share, but how do you connect to one?
+  smbclient -L <IPADDR> -U <USERNAME> lists the shares on an smb server
+  smbclient -U <USERNAME> \\\\<IP ADDR>\\<USERNAME> (A backsplash acts as an escape character, so we need multiple because samba uses back-slash instead of forward-slash)
+  - You will be prompted to log in to the given username, and then you can ls and do other things you would normally do.
+  - You can also mount an smb share into the filesystem and work with it that way. You'll need the CIFS (Common Internet File System) utils package.
+  - SMB = Server Message Block
+    - Then, you create a directory where you want to mount your share into: ex: sudo mkdir /mnt/sharedfiles/
+    - Then, mount the share: sudo mount -t cifs -o user=<USERNAME> //<IP>/engineering /mnt/sharedfiles/
+    - Mount with: sudo umount /mnt/sharedfiles/
+  - If you are connecting to those hosted by Windows of MacOS, you'll need to explore other options for specifying domain and more options.
   
+Setting up a Desktop Environment (GNOME) and basic vnc ----------
+  - Check for existing environments with yum grouplist and see if GNOME is available.
+  - sudo yum groupinstall "GNOME Desktop"
+    - The download is about 70Mb and the desktop once loaded takes up an extra 1Gb.
+  - Restart machine after the download, log in as usual, then type startx in the terminal to start the GNOME Desktop (GUI).
+    - It will ask for basic configuration like language, keyboard, etc, but you're done!
+  Oftentimes, servers won't have physical hardware like a mouse or keyboard, so to enter the desktop environment, you'll need to use a screen-sharing application like vnc.
+    sudo yum install tigervnc-server
+    (You'll need to tell the firewall about it since it is a network service: sudo firewall-cmd --zone=public --add-service=vnc-server --permanent and then you'll need to restart the firewall as well sudo firewall-cmd --reload)
+    vncserver will start up the vnc server, and you'll need to specify a password to connect to the vnc server (8 character max; not highly secure, so it is recommended to not use vnc outside of your network's secure connection)
+    vnc creates some basic files, like /home/<USER>/.vnc/<HOSTNAME>\:1.log
+    - Here, you can see where the software is listening to vnc connections and which port it is listening on.
+    - That port number will be associated with your user's desktop when you connect to the port and provide your password.
+    - It will start up the ex-session or desktop session.
+    - Other users will have to start up their own process on their own port.
+  On the client system, you'll open up a remote desktop viewer like vinegar. (There are many different vnc viewers available that work generally the same)
+  Using vinegar, click connect, change protocol to VNC, specify the host (SERVER IP):(PORT), and then fill out any other custom options. Then you'll be prompted for your password, and after, you'll have access to the host desktop.
+  - It may be a bit laggy, but it's handy if you need to use a UI on your server.
+  - Keep in mind: sessions go away if machines are restarted, the security is lacking, each session started by a user is available at a different port (anyone who knows the password can use that user's session).
   
-  
+Troubleshooting ----------
+  sudo systemd-analyze shows you how long the system took to start up, and you can further break this down by process 
+  sudo systemd-analyze blame (broken down process) will list ALL the startup services and the time they took to execute
+  sudo systemd-analyze plot > startup.svg generates a timeline of your boot process and stores it in a file called startup.svg
+    - Tip: If doing this on a server, you can copy this file to the client using scp. 
+      scp -i .ssh/id_rsa <USER>@<HOSTNAME>:startup.svg .
+  You'll need a program that can open up svg files to view the file, like firefox.
+  It's a good file to look at to get a sense for what's making your system take long(er) to boot.
+  /var/log this directory contains log files; you'll need sudo privileges to look at these logs.
+  - For example, sudo tail yum.log looks at the last few entries of the yum package manager's logs (packages we've installed)
+    - sudo cat secure shows security events, including uses of sudo on the system (SSH, sudo, ...)
+    - sudo tail messages shows a lot of information from processes that don't have their own specific log files
+    - sudo tail audit/audit.log shows the system's audit log, but you can see it in a more readable way through sudo aureport (shows statistics, and you can dive deeper with specific flags like --avc for avc audit log or -c for config changes on the system)
+    Log entries are a great place to start tracking down solutions.
+    Sluggish systems can be a sign of greedy processes or space constraints
+    df -h shows disk space in human-readable format (not blocks)
+    top command shows what processes are currently running live (system CPU, memory, swap-usage, processes, ...)
+      - You can see key commands in top by pressing h or use the man command on top (man top)
+      - You can hit k on a process to kill it (you'll need to enter and verify the process ID when prompted)
+    
   
