@@ -24,6 +24,7 @@ Intro to Bash Scripting ----------
         real - how long it took in real-time (like with a stopwatch)
         user - CPU time or instructions in the program itself
         sys - CPU time or instruction in the operating system in the kernel doing something for that process
+    
     Variable in Bash:
     - Variables in bash are given a value with =
       - You should put no spaces before or after the =; special charcaters and spaces in values should be enclosed in quotations.
@@ -37,8 +38,9 @@ Intro to Bash Scripting ----------
         export mynewvar or declare -x mynewvar
       - You can export and assign in the same statement:
         export var2="var2 value"
+    
     Functions in Bash:
-    - You can make them inheritable/visible/part of your environment with export -f myfunc
+    - You can make them inheritable/visible/part of your environment with export -f myfunc (visible to other shells)
       - Using export will show what things have been exported
     Bash functions use parentheses and brackets to group things together:
       ex: a=1 (a=2) The parentheses holds a new copy of a. If we echo $a after the closed parenthesis, the value is 1.
@@ -46,4 +48,35 @@ Intro to Bash Scripting ----------
       ex: a=1 {a=2} Using echo $a NOW will print a value of 2.
       - Bash functions define the body of the function using braces, not parentheses.
     To get a list of the built-in things, you can use the enable command (you can also DISABLE)
-    Bash prefers builtins, keywords, aliases, and functions over commands in the file system
+    Bash prefers builtins, keywords, aliases, and functions over commands in the file system (It'll look at those first)
+    - You can start a new shell by running bash (You'll need to exit to go back to the first one)
+    To look at KEYWORDS in Bash, you run compgen -k
+    
+    Bash Startup:
+    .bash_profile is read when Bash is invoked as a login shell (usually setting an environment variable, keeps it consistent)
+    .bashrc is executed EVERY time a new shell is started (with an exported variable here, it will grow with each nested shell)
+      - You would also setup aliases in the .bashrc
+    PATH=$PATH:/usr/local/bin This would keep adding /usr/local/bin to the end of PATH within nested shells.
+      This concatenates the value $PATH to a :/usr/local/bin
+    - Aliases and functions s hould be normally defines in .bashrc (things that don't grow/are not dynamic)
+    
+    Sourcing and Aliasing Scripts:
+    You can source a script by running source example.sh or . example.sh (dot space)
+    - Sourcing a script - the current shell interprets the commands inside the source script as if they were done themselves.
+    - Sourcing is a common way to import variable assignments or functions
+    - Sourcing makes it so that you are DOING a script in your own shell.
+    - You can source a variable even if the variable is assigned another value already.
+    The alias command allows for short COMMAND alternatives: alias ll="ls -l"
+      - Just typing alias will list all the defined aliases in your shell.
+      - Unset an alias with the unalias command
+      - Aliases won't be used in pathnames
+    
+    Echo Command:
+    - Common flags:
+      -n don't print a trailing newline
+      -e ENABLE backslash to escaped characters like \n and \t
+      -E DISABLE backslash escaped characters in case they were enabled by default
+    
+    
+    
+    
