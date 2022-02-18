@@ -38,6 +38,7 @@ Intro to Bash Scripting ----------
         export mynewvar or declare -x mynewvar
       - You can export and assign in the same statement:
         export var2="var2 value"
+      - UNEXPORT with export -n mynewvar or unset mynewvar
     
     Functions in Bash:
     - You can make them inheritable/visible/part of your environment with export -f myfunc (visible to other shells)
@@ -76,6 +77,11 @@ Intro to Bash Scripting ----------
       -n don't print a trailing newline
       -e ENABLE backslash to escaped characters like \n and \t
       -E DISABLE backslash escaped characters in case they were enabled by default
+    - Echo is helpful for file globbing to expand out the names of things.
+      - ex: ls * (shows contents of directory) vs echo * (shows the names)
+    - File redirection to send output to other files like stderr: 
+      echo 'Warning Will Robinson!' >&2 (send standard output to file #2, which is standard error; used to print error messages)
+    
     
     
     
