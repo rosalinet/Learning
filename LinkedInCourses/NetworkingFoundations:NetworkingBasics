@@ -1,1 +1,160 @@
-#
+#These notes reflect LinkedIn's "Networking Foundations: Networking Basics" course by Kevin Wallace
+
+1. A Network's Purpose in Life
+  A network is an interconnection of devices.
+  - 2 Primary Ways to Connect into a Network: Wired and Wireless
+    - Wired: Ethernet Cable (8-conductor connector on each end, RJ-45 connector, CAT5, CAT6, etc)
+    - Wireless: 
+      - Wireless Local Area Network = WLAN via wifi; limited geogrpahical region
+      - Cellular Service data
+  Networks can be categorized by their scope: what area do they cover?
+    - PAN: Personal Area Network (Small, interconnects 2 devices, ex: gaming system with a bluetooth controller)
+    - LAN: Local Area Network (Local to a building or area within a building, ex: computers within a department accessing the same files on a file server or a copier)
+    - CAN: Campus Area Network (Nearby buildings, University or Business campus connections)
+    - MAN: Metropolitan Area Network (Large cities, connects all offices, very high speed connection within offices)
+    - WAN: Wide Area Network (Interconnects networks over LARGE geographical regions, across the country/globe, done over the internet with encryption through VPN (Virtual Private Network)
+  Some Benefits of Networking:
+    - Communication: email, VoIP (Voice over IP) calls, instant messages, video messages
+    - Redundancy: we need our data in multiple places (archives, back-ups, overall safety)
+    - Internet Access: most common/important reason, social media, youtube, etc
+    - Monitor Connected Devices: jams amongst shared equipment, servers down, security cameras, etc
+    - Device Administration: single port of administration for network administrators; multiple devices managed from one device
+  Internet of Things (IoT) - The interconnection via the internet of computing devices embedded in everyday objects, enabling them to send and receive data.
+  
+2. Network Addresses
+  Physical and Logical Addressing
+    Physical - Assigned to network devices when they are MANUFACTURED. ("burned-in addresses")
+      - We want to consider the Media Access Control (MAC) Address.
+      - Consider a Network Interface Card (NIC); each NIC has a unique MAC address; MAC addresses are unique vendor codes.
+        - Vendor codes make up half of the MAC address and identify the manufacturer of that network device.
+        MAC Address Format Structure: 48 bits divided into 2 groupings; first 24 bits = unique to vendor: OUI - Organizationally Unique Identifier
+    Logical - IPv4 (Internet Protocol), IPv6
+      - An IP is a logical address, because it needs to be "assigned" to a device.
+      - IPv4 has 32 bits in address = 2^32 total addresses; IPv6 has 128 bits in address = 2^128 total addresses
+      IPv4 Format Structure: 32 bits divided into 4 groupings of 8 bits; we call each grouping an "octet"
+        Separated into Network and Host
+        The dividing line that separates the network address from the host address is the SUBNET MASK. First 16 = network, last 16 = host. (Example: 172.16.10.5)
+      IPv6 Format Structure: 128 bits devided into 8 groupings of four hexadecimal digits called "quartet"
+        Separated into Prefix and Host
+        32 hexadecimal numbers, 8 quartets of 4 hexadecimal digits separated by a colon (Example: 23A0:201A:00B2:0000:0000:0000:0400:0001/64)
+          - The trailing number (/64 in the example) tells us the bit-length of the prefix.
+          
+3. Pieces and Parts of a Network
+  Communication over a network for a PC - needs circuitry found in something called a NIC (Network Interface Card) Supports ethernet and/or wifi.
+    - Some devices have NIC functionality built-in to the motherboard, so there is no need for a separate one.
+    - Sometimes you need an internal or external NIC. 
+      Internal: Can plug an ethernet device plugged in directly to the internal NIC
+      External: Acts as an ethernet port, can be USB-C to Ethernet (Female)
+  Switches - Intelligent connective tissue that ties our network devices together.
+    Ethernet cables are plugged into SWITCH PORTS
+    - Switches can intelligently forward network traffic (commonly called FRAMES); learns what MAC addresses live off which ports
+    - Flooding - When a switch does NOT know how to get a frame to its target MAC address (because it doesn't know the MAC addresses yet), so it sends a copy of the frame
+    to all other switch ports except the one who sent it.
+      - The other devices look at the MAC addresses, recognize that the frame was not meant for them, and then just discard it.
+      - Once any device sends something over the switch, the switch will remember the sender's MAC address. If it doesn't recognize the target MAC address yet, it will flood again.
+      All devices connected to a SWITCH share the same IPv4 and IPv6 networks.
+  Routers - The device used to INTERCONNECT networks.
+    When you first configure a router and tell it what networks it's connected to, the router adds directly connected networks to its ip routing table.
+      - In networks with more than 1 router, the routers can exchange router info through a routing protocol, like OSPF (Open Shortest Path First).
+    - 0.0.0.0/0 is called a default route (commonly used when a router connects out to the internet; contains ALL possible IP versions for addresses)
+      - When a router has only one interface that connects it to the rest of the world, if the router doesn't know about a certain network, 
+      the only other place the network might be is out of that interface. 
+      - It takes a lot of router resources to store the complete internet routing table, so the router will send things out of a single interface to connect it to the rest of the world.
+    Network traffic sent over routers are called PACKETS.
+    Routers favor the network with the MOST specific route (route with the LONGEST PREFIX/most bits in its subnet mask)
+      Ex: A pc trying send a packet to another pc that has a specific entry in the IP routing table = the packet will NOT go through the default interface (0.0.0.0/0) even though the default
+      includes ALL of the possible IP addresses, because routers FAVOR the more specific IP already recognized on the table.
+    SWITCHES make forwarding decisions based on MAC ADDRESSES, ROUTERS make forwarding decisions based on IP ADDRESSES.
+  Wireless Access Points
+    Internet connection is brought in through a cable (maybe cable TV connection, gig fiber, DSL, etc), the connection plugs into the wireless router, and wireless 
+    devices in the area communicate using radiowaves with the wireless router.
+    - The process of a wireless client attaching to an AP with the strongest signal as the client moves around a wireless coverage area is called ROAMING.
+    - Coverage is limited and can only accomodate so many connections.
+    - For more widespread coverage: install multiple Wireless Access Points (or AP for short)
+      - Plug a cable that gets you back to an ethernet switch, then the ethernet switch attaches to other wired devices, like maybe ANOTHER access point, which connects to the router.
+  Copper Cabling 
+    The wire in a wired network is typically a sort of "twisted pair cabling"
+      - The twisting is to combat electromagnetic interference; each wire shields the other wire.
+      - At high data rates, or high electromagnetic interference (factory floor), some cabling has additonal shielding like foil around each pair or metal braiding around the wires.
+      Unsheilded Twisted Pair (UTP) and Shielded Twisted Pair (STP)
+      Another variant of twisted pair cabling: plenum-rated cable.
+        - Raised floor/drop ceiling, HVAC system uses the extra space for airflow; spaces are called Plenum space.
+        - Major Fire Hazard: If it were to get hot/catch fire, the outer insulation on many network cables release toxic fumes, so Plenum-rated cables WILL NOT release those fumes.
+    Putting on RJ-45 connectors: 8 conductors/pins, follows T568A(or B) Color Coding Standard
+    - Different types of twisted pair cabling are assigned to different categories (CAT5, CAT6, etc) 
+      - Category 6+ supports 10GB per second bandwidth
+      - Most twisted cabling have a distance limitation of 100 meters, and the signal degrades as the length increases.
+  Fiber Optic Cabling
+    - Uses light to represent data = no electromagnetic interference.
+    - Light travels slightly slower through water than air (different index of refraction), same principle applies to fiber optic cabling.
+    - There is one type of glass in the middle called the CORE, and another type surrounding it called the CLADDING. (different index of refraction!)
+    Single Mode (SMF) vs Multi Mode (MMF) - Path that the laser light travels through the fiber optic cable
+      MMF has a higher core than SMF - Light can come in at different angles, multimode delay distortion (binaries bouncing faster than others that came pervious)
+      Solution: SMF has a smaller core - One bit cannot pass another bit because the core and cladding are too small for more than one to pass.
+        - SMF is typically used for long distance applications, because it does not suffer from multimode delay distortion (bits arriving out of order).
+        
+4. The OSI Model (Open Systems Interconnection)
+  Layer 1 - Physical
+    - Network cabling, radiowaves
+      Data is referred to as "BITS"
+  Layer 2 - Data Link
+    - Physical addressing (MAC addresses), ethernet switches
+      Data is referred to as "FRAMES"
+  Layer 3 - Network 
+    - Logical addressing (IP addresses), routers
+      Data is referred to as "PACKETS"
+  Layer 4 - Transport 
+    - Logical connections, reliable: confirmed that transmitted information was received or unreliable: sent hoping that it reaches its destination
+      2 main protocols: TCP (Transmission Control Protocol, RELIABLE) and UDP (User Datagram Protocol, UNRELIABLE)
+      Data is referred to as "SEGMENTS"
+  - Layers 5-7 do not have a special name for data.
+  Layer 5 - Session
+    - Concerned with establishing, monitoring, and tearing down communcations sessions between hosts, API (Application Programming Interfaces, software communication)
+  Layer 6 - Presentation
+    - How data is represented, encryption protocols, formatting
+  Layer 7 - Application
+    - User interface, http/https (hyper text transfer protocol (secure)), DNS (Domain Name System) server (takes names provided and give back the corresponding IP address)
+  How to memorize the layers: Please Do Not Throw Sausage Pizza Away (Bottom to Top), All People Seem To Need Data Processing (Top to Bottom)
+  - The names we gave data at the bottom four layers are referred to as "protocol data units" (PDU's) = Bacon Frying Produces Salivation (Smallest to Largest) LOL
+  TCP/IP Model - combines layers 5-7 into a single layer called the "Application Layer" (there are variants to this model as well)
+    Layer 1 - Network Access: Combines physical and data link layers (OSI Layers 1-2)
+      - Sometimes called "Network Interface Layer" or "Link Layers"
+      - Another variant: kept in 2 separate layers like OSI model; two layers: "Physical" and "Network Interface"
+    Layer 2 - Internet: Renamed network layer (OSI Layer 3)
+    Layer 3 - Transport: Same as OSI model (OSI Layer 4)
+    Layer 4 - Application: Combines session, presentation, and application layers (OSI Layers 5-7)
+  Common protocols at Transport Layer (OSI and TCP) - identified as either TCP (reliable) or UDP (unreliable, no effort to confirm if the transmission was successfully received)
+    - HTTP (Hyper Text Transfer Protocol) TCP PORT 80 - Communicating with traditional web servers
+    - HTTPS (Hyper Text Transfer Protocol Secure) TCP PORT 443 - Communicating with traditional web services that need more security (finances, passwords, etc)
+    - DNS (Domain Name System) TCP/UDP PORT 53 - Converting names of servers to their corresponding IP addresses
+    - NTP (Network Time Protocol) UDP PORT 123 - Devices can use this protocol to learn time on time sources on the network
+    - DHCP (Dynamic Host Configuration Protocol) UDP PORT 67 - Gives us a way to automatically assign IP addresses to network devices (no need for manual configuration)
+      - Obtains IP address information through an exchange of: Discover, Offer, Request, and Acknowledgement messages
+    
+5. Network Services
+  DHCP (Dynamic Host Configuration Protocol) for IPv4
+    DORA: Discover, Offer, Request, and Acknowledge
+      - Discover: Device sends out a broadcast asking if there is a DHCP server on the network.
+      - Offer: DHCP server receives discover broadcast and responds with an offer message that tells the device the IP of the DHCP server. (can receive more than 1 message on the subnet server, device chooses what came first)
+      - Request: Device sends out a request message asking the DHCP server for IPv4 address information.
+      - Acknowledgement: Provides device with its own IP address, subnet mask, default gateway, and maybe even other parameters, like the address of the DNS server.
+        - If there is a router separating the device from the DHCP server, the broadcast is droppped by the router. Fix? Configure the router as a "DHCP Relay Agent"
+        - DHCP Relay Agent - gives routers the ability to forward specific types of broadcasts, inlcuding the discover broadcasts, to the specified destination!
+  DHCP (Dynamic Host Configuration Protocol) for IPv6
+    - Stateful and Stateless Servers
+    - Stateful: 
+      - DHCP v6 stateful server provides ALL of the info that the device needs. (Prefix/length, host, and DNS server's IPv6 address)
+    - Stateless:
+      - Device gets prefix/length information from the router through NDP (Neighbor Discovery Protocol), device self-generates the host portion of its address with a process called EUI-64
+      - DHCP v6 stateless server will send any other information the device needs.
+  DNS (Domain Name System) Services
+    - Routers forward traffic based on IP address information, not names, so names need to be translated to IP addresses. This is the job of DNS servers.
+    - Devices know the IP of the DNS server (learned from DHCP server), then it sends a request to convert a website name to its corresponding IP!
+      - If the DNS server does NOT know the corresponding IP address, then it can send a request to another DNS server on the internet that DOES know.
+  NAT (Network Address Translation)
+    - Allows us to have one set of IP addresses INSIDE your network which are translated into 1 or more addresses that CAN be routed on the public internet.
+    - Private IP addresses never make it to the public internet, which is why even though we are out of IPv4 addresses, we can have duplicates without trouble because if they NEED to go on the internet, they can be converted.
+    
+    
+
+  
