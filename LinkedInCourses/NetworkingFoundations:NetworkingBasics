@@ -154,7 +154,34 @@
   NAT (Network Address Translation)
     - Allows us to have one set of IP addresses INSIDE your network which are translated into 1 or more addresses that CAN be routed on the public internet.
     - Private IP addresses never make it to the public internet, which is why even though we are out of IPv4 addresses, we can have duplicates without trouble because if they NEED to go on the internet, they can be converted.
-    
+    - The router translations are stored in a NAT Translation Table, which holds inside (local) and outside (global) IP addresses.
+    - Dynamic NAT's translate multiple local IP addresses into multiple global IP addresses.
+    - Port Address Translation (PAT) - a type of NAT that allows multiple devices to share the same, single global IP address.
+      - How? When a client reaches out to a server on the internet on TCP Port 80, it dynamically picks a "SOURCE" (or "femoral" or "private" or "dynamic") port number.
+      - Therefore, the packets coming back KNOW which device requested the information.
+  NTP (Network Time Protocol)
+    - Importance: better troubleshooting (time of error), digital certificates (expiration dates), and more
+    - Internet-based time sources have hyper-accurate atomic time (Element: Caesium 133!)
+    - NTP uses UPD Port 123
+    - There are other servers on the internet that learn time FROM an atomic clock for its users (not as accurate as atomic time)
+    - Stratum number: the believability of a time source. (lower = more trustworthy, higher = less trustworthy)
+      - Every hop from the atomic clock is an extra stratum number. At 16 or more, it is considered an invalid time source.
+  QoS (Quality of Service)
+    - Causes for traffic congestion: 
+      - Speed mismatch (router input could be 1Gbps, but output to internet could be 100Mbps)
+      - Aggregation point (multiple sources sending traffic into a switch, making 3Gbps input when the router can only input 1Gbps)
+    - Helpful for periodic times of congestion, if it's prolonged, you need more bandwidth.
+    - What is QoS? Managed unfairness.
+      - Treating some traffic better than other traffic intentionally based on business needs.
+      - It is a collection of several features such as classification and marking (priority) or queuing (storing traffic in a "queue" or "buffer" until bandwidth dies down, no priority).
+  
+Wireless Networks
+  Types of Wireless LANs - Ad Hoc, Infrastructure, Mesh
+    - Ad Hoc LAN - no need for network infrastructure, not scalable but convenient for file transfers, commonly used for bluetooth or wifi
+    - Infrastructure Wireless LAN - wireless clients connect to access points, APs connect to wired infrastructure, scalable by ading more APs, supports management and monitoring features
+      - Features: see # of people on the network, check bandwidth use, configure security
+    - Mesh Wireless LAN - no need to be connected to a wired infrastructure, just needs power to receive a signal from one AP to transfer it to another AP, allows for flexibility in AP placement
     
 
-  
+
+
