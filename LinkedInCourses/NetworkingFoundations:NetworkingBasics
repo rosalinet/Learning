@@ -175,13 +175,45 @@
       - Treating some traffic better than other traffic intentionally based on business needs.
       - It is a collection of several features such as classification and marking (priority) or queuing (storing traffic in a "queue" or "buffer" until bandwidth dies down, no priority).
   
-Wireless Networks
+6. Wireless Networks
   Types of Wireless LANs - Ad Hoc, Infrastructure, Mesh
     - Ad Hoc LAN - no need for network infrastructure, not scalable but convenient for file transfers, commonly used for bluetooth or wifi
     - Infrastructure Wireless LAN - wireless clients connect to access points, APs connect to wired infrastructure, scalable by ading more APs, supports management and monitoring features
       - Features: see # of people on the network, check bandwidth use, configure security
     - Mesh Wireless LAN - no need to be connected to a wired infrastructure, just needs power to receive a signal from one AP to transfer it to another AP, allows for flexibility in AP placement
-    
+  Wireless LANS typically use these radio frequencies: 2.4 GHz or 5 GHz
+    - 2.4 GHz - divided into channels, 5 MHz between channels, 12 MHZ between channels 13 & 14, channel 14 only allowed in Japan for 802.11b, only 3 non-overlapping channels (1,6,11)
+    - 5 GHz - not as congested as 2.4 GHz band, over 20 non-overlapping channels, channels need to be spread apart if over 20 MHz, shorter range than 2.4 MHz but faster
+  Wireless Network Antennas
+    Omnidirectional - most wireless APs in homes and businesses (4 antennas = DIPOLE antennas, most signal strength is in a horizontal direction, antenna stands up vertically)
+      - Muliple antennas can support simultaneous communication with multiple clients (MU-MIMO - multiple user, multiple input, multiple output)
+    Directional - focuses transmission in a single direction, like connecting buildings (dish-shaped antennas)
 
-
+7. Emerging Trends in Networking
+  SDN (Software Defined Networking) - Traditionally configure one device at a time, but in modern applications, we need multiple configurations done at once.
+    - SDN allows use of an application that expresses our intent for network behavior. That app can communicate with an SDN controller that sends commands out to network devices all at once.
+    - SDN controllers are in charge of communciating with MULTIPLE devices.
+    - Southbound Interfaces (SBI) - communicates between an SDN controller and network devices, sits below the SDN controller
+      - Ex: OpenFlow, Secure Shell (SSH)
+    - Northbound Interfaces (NBI) - communicates between an application and an SDN controller, sits above the SDN controller
+      - Graphical interfaces, custom code (commonly written in PYTHON)
+      - Communicates with REST (Representational State Transfer) - Uses HTTP verbs, data formats: extensible markup language (XML) and JavaScript Object notation 
+  Virtualization Technology - Single physical server with multiple virtual servers installed on it
+    - Single physical server hosts multiple virtual servers through a piece of software called a HYPERVISOR.
+      - Hypervisors can create, start, stop, and monitor multiple virtual machines logically separate from one another (own OS but shared resources of underlying physical computer).
+        - We can allocate memory to each individual server; they can all share the same ethernet switch.
+        - Type 1 Hypervisor runs directly on top of a computer's underlying hardware (ex: dual-boot)
+        - Type 2 Hypervisor runs on top of an underlying operating system (ex: virtual machine)
+      - Variants of virtual servers are called CONTAINERS.
+        - Containers can share the underlying operating system. They can run applications and have no knowledge of eachother.
+        - No duplicate OS installations means less storage space the physical server requires and more portability.
+        - Ex: Docker
+    - We can virtualize network components as well, like switches or routers.
+  Cloud Technologies - an alternative approach to physical data centers. Ex: AWS, Microsoft Azure
+    - Cloud providers own and manage the equipment; we just pay for the computing power we need. (commonly called COMPUTE RESOURCES)
+      - With compute resources and cloud providers, we don't need to purchase, house, or maintain our own servers.
+      - If we need more resources, we can just spin up more on an as-needed basis.
+      - Many cloud providers do more than just act as data storage as well.
+        - Software as a Service (SaaS) - access applications through a web browser
+        - 
 
