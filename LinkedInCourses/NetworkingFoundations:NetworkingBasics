@@ -197,7 +197,7 @@
       - Ex: OpenFlow, Secure Shell (SSH)
     - Northbound Interfaces (NBI) - communicates between an application and an SDN controller, sits above the SDN controller
       - Graphical interfaces, custom code (commonly written in PYTHON)
-      - Communicates with REST (Representational State Transfer) - Uses HTTP verbs, data formats: extensible markup language (XML) and JavaScript Object notation 
+      - Communicates with REST (Representational State Transfer) - Uses HTTP verbs, data formats: extensible markup language (XML) and JavaScript Object notation (JSON)
   Virtualization Technology - Single physical server with multiple virtual servers installed on it
     - Single physical server hosts multiple virtual servers through a piece of software called a HYPERVISOR.
       - Hypervisors can create, start, stop, and monitor multiple virtual machines logically separate from one another (own OS but shared resources of underlying physical computer).
@@ -214,6 +214,30 @@
       - With compute resources and cloud providers, we don't need to purchase, house, or maintain our own servers.
       - If we need more resources, we can just spin up more on an as-needed basis.
       - Many cloud providers do more than just act as data storage as well.
-        - Software as a Service (SaaS) - access applications through a web browser
-        - 
-
+        - Software as a Service (SaaS) -offers applications that are typically accessible through a web browser
+          - Google G Suite: Gmail, Google Docs, Google Sheets, etc
+        - Infrastructure as a Service (IaaS) - offers compute and storage resources on a cloud
+        - Platform as a Service (PaaS) - offers a variety of computing platforms tuple operating systems and hardware platforms
+    - Public Cloud
+      - Compute resources are owned and maintained by cloud service provider
+      - Hardware for compute resources is shared among customers
+    - Private Cloud
+      - Compute resources are maintained by an organization
+      - Hardware for compute resources is dedicated to an organization
+    - Many organizations use both public and private clouds (HYBRID clouds/deployment)
+    - We can set up a secure virtual connection between our location and the cloud provider through VPN (Virtual Private Network)
+      - VPN encrypts data fully. Intercepted data is encrypted.
+  5G and Wi-Fi 6 (802.11ax) - Newer wireless standards that often run faster than high-speed wired LANS that run at about a gigabit per second.
+    - 5G is a cellular data service and Wi-Fi 6 is a wireless LAN standard
+    - 5G uses a different band of radio frequencies (much higher than 3G or 4G) 
+      - The theoretical max is 20 Gbps per second, but 1.5 Gbps is the typical (still typically way faster than wireless LANs)
+      - 30 - 300 GHz frequencies, higher frequencies allow us to squeeze more data in a single transmission.
+      - Very little latency (delay) as little as 1ms (theoretical)
+      - Cons: higher frequencies get absorbed by walls and windows more so than 4G frequencies, requires tightly clustered base stations (new antennas)
+    - Wi-Fi 6 (802.11ax IEEE standard) standardized in 2019
+      - The theoretical throughput is 9.6 Gbps
+      - Uses 1024-QAM = represent 10 bits with a single waveform (+2 the amount of Wi-Fi 5)
+      - Supported channel widths: 20, 40, 80, 160 MHz = allows enough available frequencies to communicate with multiple clients simultaneously (CHANNEL BONDING)
+      - Transmission method: OFDMA (Orthogonal Frequency Division Multiple Access) = allows us to use Target Wake Time and BSS Coloring: 
+          - Target Wake Time: wireless AP tells client when it is allows to send and receive resulting in less latency
+          - BSS Coloring: allows signals for one SSID on a specific channel to be distinguished from signals for a different SSID using the same channel
