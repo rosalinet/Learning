@@ -1,6 +1,6 @@
 #These notes reflect LinkedIn's "Linux: Bash SHell and Scripts" course by Kevin Dankwardt
 
-Intro to Bash Scripting ----------
+Intro to Bash Scripting ---------- CHAPTER ONE
   How to find info: man pages, info pages, web searches, reference manual
    man bash | wc -l (lists wordcount)
    info bash (interactive bash manual, can search with s, help with h, menu with m, ...)
@@ -83,6 +83,24 @@ Intro to Bash Scripting ----------
       echo 'Warning Will Robinson!' >&2 (send standard output to file #2, which is standard error; used to print error messages)
     
     
+Variables, Control Structures, and Arithmetic ---------- CHAPTER TWO
+  Local variables are created within functions and cannot be accessed outside of the function. 
+  It's good practice to DECLARE them local by usign the typeset command.
+    ex typeset -i x (x must be an integer)
+    - Arithemtic is faster for variables defined to be integers.
+    - The let command allows for convenient arithmetic
+  BASH also has a declare command where you can declare different features like -l to convert uppercase to lowercase.
+    -u does the opposite (lower to upper) 
+    -r makes a variable read-only (static)
+    -a (integer index) or -A (string, similar to a dict) can change the way an array is indexed
+    
+  The Read command lets you read input/stdinput into variables.
+    - It breaks up the input based on whitespace.
+    - ex: read a b = first word goes into a and the rest into b
+    - Read is convenient for while loops
+  While loops consist of a while, do, and done section.
+    - while is the condition, do is the action to be taken while the condition is satisfied
+    - The done command leaves the while loop once the condition is satisfied.
     
     
     
